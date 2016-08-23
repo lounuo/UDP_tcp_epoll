@@ -3,7 +3,7 @@
 //构造函数
 data_pool::data_pool()
 	:_buf(_capacity)
-	,_capacity(256)
+	,_capacity(65535)
 	,_put_index(0)
 	,_get_index(0)
 {

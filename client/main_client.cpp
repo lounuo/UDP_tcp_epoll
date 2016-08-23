@@ -66,12 +66,16 @@ void* mid_win_fun(void *arg)//中间部分，包括输出消息窗口和好友�
 		//udp_data ud(NULL, NULL, NULL, NULL);!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		udp_data ud;	
 		std::string in;
-		cli_p->recv_data(in);//接收消息并将其反序列化
+		if(cli_p->recv_data(in) == 0)//接收消息并将其反序列化
+			continue;
+
 		ud.str_to_val(in);
 
 		output_msg = ud.get_nickname();
+		//std::cout<<output_msg<<std::endl;
 		output_msg += "-";
 		output_msg += ud.get_school();
+		//std::cout<<output_msg<<std::endl;
 
 		//添加好友列表
 		if(fd_list.size() == 0)

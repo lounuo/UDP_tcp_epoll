@@ -30,6 +30,10 @@ void udp_data::str_to_val(std::string &in_str)
 	_school = out_val["School"].asString();
 	_msg = out_val["Msg"].asString();
 	_cmd = out_val["Cmd"].asString();
+	//_nickname = out_val["name"].asString();
+	//_school = out_val["school"].asString();
+	//_msg = out_val["msg"].asString();
+	//_cmd = out_val["cmd"].asString();
 }
 
 

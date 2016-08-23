@@ -10,11 +10,22 @@ udp_client::udp_client(std::string ip, int port)
 //初始化客户端，创建socket
 void udp_client::init()
 {
-	_sock = socket(AF_INET, SOCK_DGRAM, 0);
+	_sock = socket(AF_INET, SOCK_STREAM, 0);
 	if(_sock < 0)
 	{
 		print_log(strerror(errno), __FUNCTION__, __LINE__);
 		exit(1);
+	}
+
+	struct sockaddr_in server;
+	server.sin_family = AF_INET;
+	server.sin_port = htons(_port);
+	server.sin_addr.s_addr = inet_addr(_ip.c_str());
+
+	if(connect(_sock, (struct sockaddr*)&server, sizeof(server)) < 0)
+	{
+		print_log(strerror(errno), __FUNCTION__, __LINE__);
+		exit(2);
 	}
 }
 
@@ -33,7 +44,7 @@ ssize_t udp_client::recv_data(std::string& msg)
 	{
 		char *server_ip = inet_ntoa(server.sin_addr);
 		int server_port = ntohs(server.sin_port);
-		std::cout<<"server->[ip]: "<<server_ip<<"  [port]: "<<server_port<<"  closed..."<<std::endl;
+		//std::cout<<"server->[ip]: "<<server_ip<<"  [port]: "<<server_port<<"  closed..."<<std::endl;
 	}
 	else
 	{
